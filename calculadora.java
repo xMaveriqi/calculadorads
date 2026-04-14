@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Calculadora {
+public class calculadora {
     private JFrame janela;
     private JTextField visorEquacao;
     private JTextField visorAtual;
@@ -10,12 +10,12 @@ public class Calculadora {
     private String operadorPendente = "+";
     private boolean novoNumero = true;
 
-    public Calculadora(){
+    public calculadora(){
         janela = new JFrame();
 
         //janela
         janela.setSize(350, 450);
-        janela.setTitle("Calculadora");
+        janela.setTitle("Cowculator");
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
      //paineis
