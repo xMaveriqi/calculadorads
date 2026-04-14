@@ -35,5 +35,46 @@ visorAtual.setFont(font);
 janela.add(painelValores, BorderLayout.NORTH);
 janela.setVisible(true);
 
+private void tratarClique(String comando){
+            if("0123456789".contains(comando)){
+                if (novoNumero){
+                    visorAtual.setText(comando);
+                    novoNumero = false;
+                } else{
+                    visorAtual.setText(visorAtual.getText() + comando);
+                }
+            } else if ("+-*/=".contains(comando)) {
+                calcular(Double.parseDouble(visorAtual.getText()));
+                if (comando.equals("=")){
+                    visorEquacao.setText(visorEquacao.getText() + visorAtual.getText() + " =");
+                    visorAtual.setText(String.valueOf(resultado));
+                    resultado = 0;
+                    operadorPendente = "+";
+                } else{
+                    visorEquacao.setText(visorEquacao.getText() + visorAtual.getText() + "" + comando + "");
+                    visorAtual.setText(String.valueOf(resultado));
+                } 
+                novoNumero = true;
+            } else if (comando.equals("C")){
+                resultado = 0;
+                operadorPendente = "+";
+                visorAtual.setText("0");
+                visorEquacao.setText(" ");
+            }
+                
+            }
+            private void calcular(double valor){
+                if (operadorPendente.equals( "+")) {
+                    resultado += valor;
+                } else if (operadorPendente.equals( "-")) {
+                    resultado -= valor;
+                }else if (operadorPendente.equals( "*")) {
+                    resultado *= valor;
+                }else if (operadorPendente.equals( "/")) {
+                    resultado /= valor;
+            }
+        }
+}
+        
     }
 }
