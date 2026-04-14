@@ -1,41 +1,62 @@
 import javax.swing.*;
-import javax.swing.border.Border;
-
 import java.awt.*;
 
-public class calculadora {
+public class Calculadora {
     private JFrame janela;
-private JTextField visorEquacao;
-private JTextField visorAtual;
+    private JTextField visorEquacao;
+    private JTextField visorAtual;
 
+    private double resultado;
+    private String operadorPendente = "+";
+    private boolean novoNumero = true;
 
+    public Calculadora(){
+        janela = new JFrame();
 
+        //janela
+        janela.setSize(350, 450);
+        janela.setTitle("Calculadora");
+        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    public calculadora() {
-       janela = new JFrame();
+     //paineis
+        JPanel painelVisores = new JPanel(new GridLayout(2,1));
 
-       janela.setSize(350, 450);
-       janela.setTitle("calculadora");
-       janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        visorEquacao = new JTextField();
+        visorEquacao.setEditable(false);
+        visorEquacao.setHorizontalAlignment(JTextField.RIGHT);
 
-       visorEquacao = new JTextField();
-       visorEquacao.setEditable(false);
-       visorEquacao.setHorizontalAlignment(JTextField.RIGHT);
+        visorAtual = new JTextField("0");
+        visorAtual.setEditable(false);
+        visorAtual.setHorizontalAlignment(JTextField.RIGHT);
+        visorAtual.setFont(new Font("Arial", Font.BOLD, 28));
 
-       visorAtual = new JTextField("0");
-       visorAtual.setEditable(false);
-       visorAtual.setHorizontalAlignment(JTextField.RIGHT);
-       Font font = new Font("Arial", Font.BOLD,28);
-visorAtual.setFont(font);
+        //layout
+        painelVisores.add(visorEquacao);
+        painelVisores.add(visorAtual);
+        janela.add(painelVisores, BorderLayout.NORTH);
 
-       JPanel painelValores = new JPanel(new GridLayout(2,1));
-       painelValores.add(visorEquacao);
-       painelValores.add(visorAtual);
+        //botões
+        JPanel painelBotoes = new JPanel(new GridLayout(4, 4, 5, 5));
+        String[] textos = {
+            "7", "8", "9", "/",
+            "4", "5", "6", "*",
+            "1", "2", "3", "-",
+            "C", "0", "=", "+",
+        };
 
-janela.add(painelValores, BorderLayout.NORTH);
-janela.setVisible(true);
+        for (String texto : textos) {
+            JButton btn = new JButton(texto);
+            btn.addActionListener(e -> tratarClique(texto));
+            painelBotoes.add(btn);
+        }
 
-private void tratarClique(String comando){
+        janela.add(painelBotoes);
+
+        janela.setVisible(true);
+
+        
+    }  
+        private void tratarClique(String comando){
             if("0123456789".contains(comando)){
                 if (novoNumero){
                     visorAtual.setText(comando);
@@ -74,7 +95,4 @@ private void tratarClique(String comando){
                     resultado /= valor;
             }
         }
-}
-        
-    }
 }
